@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afficher les tables</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Choix de table</h1>
+    </header>
+
+    <div class="container">
+        <h2>Sélectionnez une table à afficher</h2>
+        
+        <form method="POST">
+            <label for="table">Table :</label>
+            <select name="table" id="table">
+                {% for table in tables %}
+                <option value="{{ table }}">{{ table }}</option> <!-- choisir le nom de la table -->
+                {% endfor %}
+            </select>
+            <button type="submit">Afficher</button> <!-- faire un boutton -->
+        </form>
+
+        {% if rows %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        {% for col in rows[0].keys() %}<!-- les boucles  -->
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr>
+                        {% for col in row.keys() %}
+                        <td>{{ row[col] }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
